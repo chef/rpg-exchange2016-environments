@@ -59,7 +59,7 @@ module Config
     outputs_file = File.join(File.dirname(__FILE__), '..', 'build', file_name)
     File.read(outputs_file).lines.each do |line|
       next if !line.start_with?('output')
-      outputs += [line.sub(/^output \"/, "").sub(/\" {\n/, '')]
+      outputs += [line.sub(/^output \"/, '').sub(/\" {\n/, '')]
     end
     outputs
   end
