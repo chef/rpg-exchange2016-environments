@@ -27,6 +27,8 @@ Set-TransportService ExchNodeMain -ConnectivityLogEnabled $false
 Set-TransportConfig -MaxSendSize "5MB"
 # 2.1
 Set-MailboxDatabase "DB1" -IssueWarningQuota "1.7 GB"
+# 2.2
+Set-MailboxDatabase "DB1" -ProhibitSendReceiveQuota "2.2GB"
 # 2.3
 Set-MailboxDatabase "DB1" -ProhibitSendQuota "1.95 GB"
 # 2.4

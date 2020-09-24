@@ -101,7 +101,7 @@ namespace :rpg do
     attributes[:instance_ip] = exch_public_ip
     File.open(File.join(TERRAFORM_DIR, PROFILE_ATTRIBUTES), "w"){ |f| YAML.dump(attributes, f) }
 
-    puts "Exchange Server Public IP - " + exch_public_ip
+    puts "SUCCESS - Exchange Server Public IP - " + exch_public_ip
 
     username = attributes[:domain_netbios_name] + "\\" + attributes[:instance_username]
     password = attributes[:instance_password]
@@ -206,6 +206,8 @@ namespace :rpg do
     ec2_client = Aws::EC2::Client.new(region: 'eu-north-1')
     attributes = YAML.load_file(File.join(TERRAFORM_DIR, PROFILE_ATTRIBUTES))
 
+    puts "----> Releasing Exchange Elastic IP"
+
     ip = attributes[:instance_ip]
 
     unless ip.nil?
@@ -213,6 +215,7 @@ namespace :rpg do
       ec2_client.disassociate_address(public_ip: ip)
 
       ec2_client.release_address({ allocation_id: elastic_ip.addresses[0].allocation_id })
+      puts "SUCCESS - IP Released"
     end
   end
 
