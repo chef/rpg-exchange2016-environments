@@ -107,9 +107,7 @@ namespace :rpg do
     password = attributes[:instance_password]
 
     script_target = ENV['SETUP_SCRIPT'] || attributes[:setup_script]
-    unless File.exist?(script_target)
-      raise "Could not find script file: #{script_target}"
-    end
+    raise "Could not find script file: #{script_target}" unless File.exist?(script_target)
 
     puts '---> Installing Chef Client and Running Setup Script'
     counter = 0
@@ -171,29 +169,29 @@ namespace :rpg do
     else
       vpc_id = exchange_vpc[0][0].vpc_id
       vpc_domainmembers_sgs = ec2_client.describe_security_groups(filters: [{
-                                                                    name: 'vpc-id',
-                                                                    values: [vpc_id]
-                                                                  }, {
-                                                                    name: 'group-name', values: ['exchange-stack-ADStack-*-DomainMembers*']
-                                                                  }])
+                                                                              name: 'vpc-id',
+                                                                              values: [vpc_id]
+                                                                            },
+                                                                            {
+                                                                              name: 'group-name',
+                                                                              values: ['exchange-stack-ADStack-*-DomainMembers*']
+                                                                            }])
       sg_id = vpc_domainmembers_sgs.security_groups[0][:group_id]
       begin
         ec2_client.authorize_security_group_ingress(group_id: sg_id, ip_permissions: [{
-                                                      ip_protocol: 'tcp',
-                                                      from_port: 3389,
-                                                      to_port: 3389,
-                                                      ip_ranges: [{
-                                                        cidr_ip: '0.0.0.0/0'
-                                                      }]
-                                                    }])
+                                                                                        ip_protocol: 'tcp',
+                                                                                        from_port: 3389,
+                                                                                        to_port: 3389,
+                                                                                        ip_ranges: [{
+                                                                                          cidr_ip: '0.0.0.0/0'
+                                                                                        }]}])
         ec2_client.authorize_security_group_ingress(group_id: sg_id, ip_permissions: [{
-                                                      ip_protocol: 'tcp',
-                                                      from_port: 5985,
-                                                      to_port: 5985,
-                                                      ip_ranges: [{
-                                                        cidr_ip: '0.0.0.0/0'
-                                                      }]
-                                                    }])
+                                                                                        ip_protocol: 'tcp',
+                                                                                        from_port: 5985,
+                                                                                        to_port: 5985,
+                                                                                        ip_ranges: [{
+                                                                                          cidr_ip: '0.0.0.0/0'
+                                                                                        }]}])
         puts 'SUCCESS - RDP/WinRM traffic opened on Exchange Stack'
       rescue Aws::EC2::Errors::InvalidPermissionDuplicate
         puts 'SKIPPED - RDP/WinRM rule already exists on Exchange Stack'
@@ -210,15 +208,15 @@ namespace :rpg do
     exchange_vpc_id = exchange_instance.reservations[0].instances[0].vpc_id
 
     exchange_igw = ec2_client.describe_internet_gateways(filters: [{
-                                                           name: 'attachment.vpc-id',
-                                                           values: [exchange_vpc_id]
-                                                         }])
+                                                                     name: 'attachment.vpc-id',
+                                                                     values: [exchange_vpc_id]
+                                                                   }])
     igw_id = exchange_igw.internet_gateways[0].internet_gateway_id
 
     exchange_route_tables = ec2_client.describe_route_tables(filters: [{
-                                                               name: 'association.subnet-id',
-                                                               values: [exchange_subnet_id]
-                                                             }])
+                                                                         name: 'association.subnet-id',
+                                                                         values: [exchange_subnet_id]
+                                                                       }])
     route_table_id = exchange_route_tables.route_tables[0].associations[0].route_table_id
 
     ec2_client.replace_route(route_table_id: route_table_id, destination_cidr_block: '0.0.0.0/0', gateway_id: igw_id)
@@ -234,7 +232,7 @@ namespace :rpg do
 
     ip = attributes[:instance_ip]
 
-    unless ip.nil?
+    if !ip.nil?
       begin
         elastic_ip = ec2_client.describe_addresses(public_ips: [ip])
         ec2_client.disassociate_address(public_ip: ip)
@@ -244,6 +242,8 @@ namespace :rpg do
       rescue Aws::EC2::Errors::InvalidAddressNotFound
         puts "SKIPPED - Elastic IP #{ip} has already been released"
       end
+    else
+      puts "SKIPPED - Elastic IP #{ip} has already been released"
     end
   end
 
@@ -289,9 +289,7 @@ namespace :rpg do
   task :run_script do
     attributes = YAML.load_file(File.join(TERRAFORM_DIR, PROFILE_ATTRIBUTES))
     script_target = ENV['EXE_SCRIPT'] || attributes[:execute_script]
-    unless File.exist?(script_target)
-      raise "Could not find script file: #{script_target}"
-    end
+    raise "Could not find script file: #{script_target}" unless File.exist?(script_target)
 
     counter = 0
     status = {}
@@ -335,9 +333,7 @@ namespace :rpg do
   task :run_remediation do
     attributes = YAML.load_file(File.join(TERRAFORM_DIR, PROFILE_ATTRIBUTES))
     remediation_target = REMEDIATION_PROFILE || attributes[:remediation_profile]
-    unless remediation_target
-      raise "Could not find remediation profile: #{remediation_target}"
-    end
+    raise "Could not find remediation profile: #{remediation_target}" unless remediation_target
 
     cookbook_run_list = "remediation_#{remediation_target.split('/').last.split('_cookbook')[0].downcase}"
 
