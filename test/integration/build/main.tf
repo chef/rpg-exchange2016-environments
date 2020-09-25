@@ -37,7 +37,7 @@ resource "aws_cloudformation_stack" "exchange2016" {
   name = "exchange-stack"
 
   parameters = {
-    AvailabilityZones = "eu-north-1a,eu-north-1b",
+    AvailabilityZones = "us-west-2a,us-west-2b",
     ADServer1NetBIOSName = "DC1",
     ADServer1InstanceType = "t3.large"
     ADServer2InstanceType = "t3.large"
