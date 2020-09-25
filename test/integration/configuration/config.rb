@@ -17,7 +17,7 @@ module Config
   # Config for terraform / inspec in the below hash
   @config = {
     # Generic AWS resource parameters
-    aws_region: 'eu-north-1',
+    aws_region: 'eu-west-1',
     aws_profile: 'partner-engineering',
     ssh_key_name: "ssh-key-#{add_random_string}",
     execute_script: 'scripts/break_exchange.ps1',

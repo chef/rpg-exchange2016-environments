@@ -37,7 +37,7 @@ resource "aws_cloudformation_stack" "exchange2016" {
   name = "exchange-stack"
 
   parameters = {
-    AvailabilityZones = "eu-north-1a, eu-north-1b",
+    AvailabilityZones = "eu-west-1a, eu-west-1b",
     ADServer1NetBIOSName = "DC1",
     ADServer1InstanceType = "t3.large"
     ADServer2InstanceType = "t3.large"
@@ -46,16 +46,12 @@ resource "aws_cloudformation_stack" "exchange2016" {
     DomainAdminPassword = var.instance_password,
     DomainDNSName = "exchexample.com",
     DomainNetBIOSName = "exchexample",
-//    EdgeInstanceType = "t3.large",
-//    EdgeNode1NetBIOSName = "EdgeNodeMain",
-//    EdgeNode2NetBIOSName = "StopEdgeNode2",
     ExchangeNode1NetBIOSName = "ExchNodeMain",
     ExchangeNode2NetBIOSName = "StopExchNode2",
     ExchangeNodeInstanceType = "m5.xlarge",
     ExchangeServerVersion = "2016",
     FileServerInstanceType = "t3.small",
     FileServerNetBIOSName = "StopFileServer",
-//    IncludeEdgeTransportRole = "yes",
     KeyPairName = var.ssh_key_name,
     QSS3BucketName = "aws-quickstart",
     QSS3BucketRegion = "us-east-1",
