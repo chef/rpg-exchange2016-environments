@@ -3,6 +3,7 @@
 
 require 'rake/testtask'
 require 'rubocop/rake_task'
+require 'chefstyle'
 require_relative 'test/integration/configuration/config'
 require_relative 'tasks/check_json_results'
 require 'aws-sdk-ec2'
