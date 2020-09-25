@@ -155,7 +155,7 @@ spec:
             withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'partner-engineering-aws-creds']]) {
                 container('exchange2016-ci') {
                     dir('rpg-exchange2016-environments') {
-                        //sh 'bundle exec rake rpg:cleanup_integration_tests'
+                        sh 'bundle exec rake rpg:cleanup_integration_tests'
                     }
                 }
             }
