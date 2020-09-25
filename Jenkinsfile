@@ -46,15 +46,6 @@ spec:
                 }
             }
         }
-        stage('RuboCop Linting') {
-            steps {
-                container('exchange2016-ci') {
-                    dir('rpg-exchange2016-environments') {
-                        sh 'bundle exec rake rubocop'
-                    }
-                }
-            }
-        }
         stage('Set Up Terraform') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'partner-engineering-aws-creds']]) {

@@ -67,7 +67,7 @@ namespace :rpg do
     configure(TF_VAR_FILE_NAME, PROFILE_ATTRIBUTES)
   end
 
-  task plan_integration_tests: %i[tf_dir init_workspace] do
+  task plan_integration_tests: [:tf_dir, :init_workspace] do
     if File.exist?(TF_VAR_FILE)
       puts '----> Previous run not cleaned up - running cleanup...'
       Rake::Task['rpg:cleanup_integration_tests'].execute
@@ -79,7 +79,7 @@ namespace :rpg do
     sh(cmd)
   end
 
-  task setup_integration_tests: %i[tf_dir plan_integration_tests] do
+  task setup_integration_tests: [:tf_dir, :plan_integration_tests] do
     puts '----> Applying the plan'
     # Apply the plan
     cmd = format('terraform apply %<plan_file>s', plan_file: TF_PLAN_FILE)
