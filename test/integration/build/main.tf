@@ -35,7 +35,10 @@ resource "tls_private_key" "priv_key" {
 
 data "aws_availability_zones" "available" {
   state = "available"
-  group_names = ["eu-north-1"]
+  filter {
+    name   = "region-name"
+    values = ["eu-north-1"]
+  }
 }
 
 resource "aws_cloudformation_stack" "exchange2016" {
