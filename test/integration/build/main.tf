@@ -37,27 +37,27 @@ resource "aws_cloudformation_stack" "exchange2016" {
   name = "exchange-stack"
 
   parameters = {
-    AvailabilityZones = 'eu-north-1a,eu-north-1b',
-    ADServer1NetBIOSName = 'DC1',
-    ADServer1InstanceType = 't3.large',
-    ADServer2InstanceType = 't3.large',
-    ADServer2NetBIOSName = 'StopDC2',
-    DomainAdminUser = 'ExchangeAdmin',
+    AvailabilityZones = "eu-north-1a,eu-north-1b",
+    ADServer1NetBIOSName = "DC1",
+    ADServer1InstanceType = "t3.large",
+    ADServer2InstanceType = "t3.large",
+    ADServer2NetBIOSName = "StopDC2",
+    DomainAdminUser = "ExchangeAdmin",
     DomainAdminPassword = var.instance_password,
-    DomainDNSName = 'exchexample.com',
-    DomainNetBIOSName = 'exchexample',
-    ExchangeNode1NetBIOSName = 'ExchNodeMain',
-    ExchangeNode2NetBIOSName = 'StopExchNode2',
-    ExchangeNodeInstanceType = 'm5.xlarge',
-    ExchangeServerVersion = '2016',
-    FileServerInstanceType = 't3.small',
-    FileServerNetBIOSName = 'topFileServer',
+    DomainDNSName = "exchexample.com",
+    DomainNetBIOSName = "exchexample",
+    ExchangeNode1NetBIOSName = "ExchNodeMain",
+    ExchangeNode2NetBIOSName = "StopExchNode2",
+    ExchangeNodeInstanceType = "m5.xlarge",
+    ExchangeServerVersion = "2016",
+    FileServerInstanceType = "t3.small",
+    FileServerNetBIOSName = "StopFileServer",
     KeyPairName = var.ssh_key_name,
-    QSS3BucketName = 'aws-quickstart',
-    QSS3BucketRegion = 'us-east-1',
-    QSS3KeyPrefix = 'quickstart-microsoft-exchange/',
-    RDGWCIDR = '0.0.0.0/0',
-    RDGWInstanceType = 'm5.large'
+    QSS3BucketName = "aws-quickstart",
+    QSS3BucketRegion = "us-east-1",
+    QSS3KeyPrefix = "quickstart-microsoft-exchange/",
+    RDGWCIDR = "0.0.0.0/0",
+    RDGWInstanceType = "m5.large"
   }
 
   template_url = "https://aws-quickstart.s3.amazonaws.com/quickstart-microsoft-exchange/templates/exchange-master.template"
