@@ -48,7 +48,7 @@ spec:
         }
         stage('Set Up Terraform') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'partner-engineering-aws-creds']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'dmartin-project']]) {
                     container('exchange2016-ci') {
                         dir('rpg-exchange2016-environments') {
                             sh 'bundle exec rake rpg:setup_integration_tests'
@@ -152,7 +152,7 @@ spec:
     post {
         always {
             archiveArtifacts(artifacts: 'rpg-exchange2016-environments/results/*_results.txt,rpg-exchange2016-environments/results/*_results.json,rpg-exchange2016-environments/*_remediation_outputs.yaml,rpg-exchange2016-environments/test/integration/build/tfvars.json', allowEmptyArchive: true)
-            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'partner-engineering-aws-creds']]) {
+            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'dmartin-project']]) {
                 container('exchange2016-ci') {
                     dir('rpg-exchange2016-environments') {
                         sh 'bundle exec rake rpg:cleanup_integration_tests'
