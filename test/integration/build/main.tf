@@ -33,11 +33,16 @@ resource "tls_private_key" "priv_key" {
   rsa_bits = 4096
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+  group_names = "eu-north-1"
+}
+
 resource "aws_cloudformation_stack" "exchange2016" {
   name = "exchange-stack"
 
   parameters = {
-    AvailabilityZones = "eun1-az1,eun1-az2",
+    AvailabilityZones = "${data.aws_availability_zones.available.names[1]},${data.aws_availability_zones.available.names[0]}"
     ADServer1NetBIOSName = "DC1",
     ADServer1InstanceType = "t3.large",
     ADServer2InstanceType = "t3.large",
@@ -53,6 +58,7 @@ resource "aws_cloudformation_stack" "exchange2016" {
     FileServerInstanceType = "t3.small",
     FileServerNetBIOSName = "StopFileServer",
     KeyPairName = var.ssh_key_name,
+    NumberOfAZs = "2",
     QSS3BucketName = "aws-quickstart",
     QSS3BucketRegion = "us-east-1",
     QSS3KeyPrefix = "quickstart-microsoft-exchange/",
