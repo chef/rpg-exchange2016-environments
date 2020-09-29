@@ -9,7 +9,7 @@ kind: Pod
 spec:
   containers:
   - name: exchange2016-ci
-    image: gcr.io/spaterson-project/jenkins-ruby-tf-gcloud-b3:latest
+    image: gcr.io/spaterson-project/exchange2016-ci:latest
     command: ['cat']
     tty: true
     alwaysPullImage: true
@@ -48,7 +48,7 @@ spec:
         }
         stage('Set Up Terraform') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'dmartin-project']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'partner-engineering-aws-creds']]) {
                     container('exchange2016-ci') {
                         dir('rpg-exchange2016-environments') {
                             sh 'bundle exec rake rpg:setup_integration_tests'
@@ -152,7 +152,7 @@ spec:
     post {
         always {
             archiveArtifacts(artifacts: 'rpg-exchange2016-environments/results/*_results.txt,rpg-exchange2016-environments/results/*_results.json,rpg-exchange2016-environments/*_remediation_outputs.yaml,rpg-exchange2016-environments/test/integration/build/tfvars.json', allowEmptyArchive: true)
-            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'dmartin-project']]) {
+            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'partner-engineering-aws-creds']]) {
                 container('exchange2016-ci') {
                     dir('rpg-exchange2016-environments') {
                         sh 'bundle exec rake rpg:cleanup_integration_tests'
