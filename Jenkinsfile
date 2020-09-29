@@ -31,7 +31,7 @@ spec:
                 }
                 sh 'mkdir rpg-exchange2016-environments'
                 dir('rpg-exchange2016-environments') {
-                    git([url: 'https://github.com/chef/rpg-exchange2016-environments', branch: 'dmartin-exchange', credentialsId: 'github-skp'])
+                    git([url: 'https://github.com/chef/rpg-exchange2016-environments', branch: 'master', credentialsId: 'github-skp'])
                     sh 'pwd && ls -la'
                 }
             }
