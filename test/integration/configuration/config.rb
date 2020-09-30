@@ -21,7 +21,7 @@ module Config
     aws_profile: 'partner-engineering',
     ssh_key_name: "ssh-key-#{add_random_string}",
     execute_script: 'scripts/break_exchange.ps1',
-    setup_script: '../../../scripts/exchange_setup.ps1',
+    setup_script: 'files/exchange_setup.ps1',
     remediation_profile: '', # set to copy across the remediation cookbook and run it
     inspec_profile: '', # set to a profile for target mode against host
     instance_password: 'ExchPW123!'
