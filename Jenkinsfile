@@ -87,13 +87,13 @@ spec:
                     dir('rpg-exchange2016-environments') {
                         script {
                             try {
-                                sh 'ruby scripts/parse_results.rb -l 2016_inspec-output'
-                                sh 'bundle exec rake rpg:check_results["2016_inspec-output","2016_non_remediated_inspec-output"]'
-                                sh 'mv results/2016_inspec-output.txt results/2016_non_remediated_inspec_results.txt'
-                                sh 'mv results/2016_inspec-output.json results/2016_non_remediated_inspec_results.json'
+                                sh 'ruby scripts/parse_results.rb -l inspec-output'
+                                sh 'bundle exec rake rpg:check_results["inspec-output","non_remediated_inspec-output"]'
+                                sh 'mv results/inspec-output.txt results/non_remediated_inspec_results.txt'
+                                sh 'mv results/inspec-output.json results/non_remediated_inspec_results.json'
                         } catch (Exception e) {
-                                sh 'mv results/2016_inspec-output.txt results/2016_non_remediated_inspec_results.txt'
-                                sh 'mv results/2016_inspec-output.json results/2016_non_remediated_inspec_results.json'
+                                sh 'mv results/inspec-output.txt results/non_remediated_inspec_results.txt'
+                                sh 'mv results/inspec-output.json results/non_remediated_inspec_results.json'
                                 sh 'bundle exec rake rpg:cleanup_integration_tests'
                                 throw e
                             }
@@ -132,13 +132,13 @@ spec:
                     dir('rpg-exchange2016-environments') {
                         script {
                             try {
-                                sh 'ruby scripts/parse_results.rb -l 2016_inspec-output'
-                                sh 'bundle exec rake rpg:check_results["2016_inspec-output","2016_remediated_inspec-output"]'
-                                sh 'mv results/2016_inspec-output.txt results/2016_remediated_inspec_results.txt'
-                                sh 'mv results/2016_inspec-output.json results/2016_remediated_inspec_results.json'
+                                sh 'ruby scripts/parse_results.rb -l inspec-output'
+                                sh 'bundle exec rake rpg:check_results["inspec-output","remediated_inspec-output"]'
+                                sh 'mv results/2016_inspec-output.txt results/remediated_inspec_results.txt'
+                                sh 'mv results/inspec-output.json results/remediated_inspec_results.json'
                     } catch (Exception e) {
-                                sh 'mv results/2016_inspec-output.txt results/2016_remediated_inspec_results.txt'
-                                sh 'mv results/2016_inspec-output.json results/2016_remediated_inspec_results.json'
+                                sh 'mv results/inspec-output.txt results/remediated_inspec_results.txt'
+                                sh 'mv results/inspec-output.json results/remediated_inspec_results.json'
                                 sh 'bundle exec rake rpg:cleanup'
                                 throw e
                             }
