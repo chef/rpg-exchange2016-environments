@@ -9,6 +9,7 @@ variable "aws_profile" {}
 # just to stop warnings
 variable "execute_script" {}
 variable "setup_script" {}
+variable "env_variable_script" {}
 variable "remediation_profile" {}
 variable "inspec_profile" {}
 

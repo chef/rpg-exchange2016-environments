@@ -112,24 +112,35 @@ namespace :rpg do
       raise "Could not find script file: #{script_target}"
     end
 
+    env_variable_script = ENV['ENV_VARIABLE_SCRIPT'] || attributes[:env_variable_script]
+    unless File.exist?(env_variable_script)
+      raise "Could not find script file: #{env_variable_script}"
+    end
+
+    files = []
+    files << script_target
+    files << env_variable_script
+
     puts '---> Installing Chef Client and Running Setup Script'
     counter = 0
     status = {}
     while counter < 20
-      conn = winrm_connection(attributes[:instance_ip], attributes[:instance_username], attributes[:instance_password])
-      file_manager = WinRM::FS::FileManager.new(conn)
-      sleep(60)
-      file_manager.upload(script_target, "C:/#{script_target}")
-      sleep(60)
-      conn.shell(:elevated) do |shell|
-        shell.username = attributes[:domain_netbios_name] + '\\' + attributes[:instance_username]
-        shell.password = attributes[:instance_password]
-        output = shell.run("C:/#{script_target}") do |stdout, stderr|
-          STDOUT.print stdout
-          STDERR.print stderr
+      files.each do |file|
+        conn = winrm_connection(attributes[:instance_ip], attributes[:instance_username], attributes[:instance_password])
+        file_manager = WinRM::FS::FileManager.new(conn)
+        sleep(60)
+        file_manager.upload(file, "C:/#{file}")
+        sleep(60)
+        conn.shell(:elevated) do |shell|
+          shell.username = attributes[:domain_netbios_name] + '\\' + attributes[:instance_username]
+          shell.password = attributes[:instance_password]
+          output = shell.run("C:/#{file}") do |stdout, stderr|
+            STDOUT.print stdout
+            STDERR.print stderr
+          end
+          status = 'success' if output.exitcode.zero?
+          puts "The script exited with exit code #{output.exitcode}"
         end
-        status = 'success' if output.exitcode.zero?
-        puts "The script exited with exit code #{output.exitcode}"
       end
       break if status == 'success'
 
@@ -140,7 +151,7 @@ namespace :rpg do
     counter = 0
     puts '---> Waiting for bootstrap to finish...'
     while counter < 20
-      cmd = "inspec detect -t winrm://#{exch_public_ip} --user='#{username}' --password='#{password}'"
+      cmd = "inspec detect -t winrm://#{exch_public_ip} --user='#{username}' --password='#{password}' --chef-license=accept-silent"
       stdout, stderr, status = Open3.capture3(cmd)
       puts stdout
       puts stderr
