@@ -340,11 +340,11 @@ namespace :rpg do
     attributes = YAML.load_file(File.join(TERRAFORM_DIR, PROFILE_ATTRIBUTES))
     # take profile target from env before checking attributes
     profile_target = INSPEC_PROFILE || attributes['inspec_profile']
-
+    inspec_inputs = if ENV['INSPEC_INPUTS'] then ENV['INSPEC_INPUTS'] else 'inspec_inputs.yaml' end
     reporter_name = reporter_name_suffix.to_s
-    cmd = 'bundle exec inspec exec %s -t winrm://%s@%s --password="%s" --input-file %s/build/%s --reporter cli json:results/%s.json html:%s.html --chef-license=accept-silent'
+    cmd = 'bundle exec inspec exec %s --input-file %s -t winrm://%s@%s --password="%s" --reporter cli json:results/%s.json html:%s.html --chef-license=accept-silent'
     cmd += '; rc=$?; if [ $rc -eq 0 ] || [ $rc -eq 101 ] || [ $rc -eq 100 ]; then exit 0; else exit 1; fi'
-    cmd = format(cmd, profile_target, attributes[:instance_username], attributes[:instance_ip], attributes[:instance_password], INTEGRATION_DIR, PROFILE_ATTRIBUTES, reporter_name, reporter_name)
+    cmd = format(cmd, profile_target, inspec_inputs, attributes[:instance_username], attributes[:instance_ip], attributes[:instance_password], reporter_name, reporter_name)
     sh(cmd)
   end
 

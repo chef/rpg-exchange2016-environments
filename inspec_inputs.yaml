@@ -1,0 +1,13 @@
+exchange_admin_username: 'ExchangeAdmin'
+exchange_password: 'ExchPW123!'
+exchange_encrypted_password: ''
+exchange_fqdn: 'exchexample.com'
+exchange_server_name: 'ExchNodeMain'
+exchange_mailbox_database_names: ['DB1']
+exchange_remote_domain_names: ['default']
+send_connectors: ['ExampleSendConnector']
+receive_connectors: ['ExampleReceiveConnector']
+exchange_dial_plans: ['ExampleUMDialPlan']
+exchange_owa_directories: ['owa (Default Web Site)']
+um_mailbox_policies: ['ExampleUMMailboxPolicy']
+mobile_mailbox_policies: ['default']
