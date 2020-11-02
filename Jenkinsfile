@@ -88,7 +88,7 @@ spec:
                         script {
                             try {
                                 sh 'ruby scripts/parse_results.rb -l inspec-output'
-                                sh 'bundle exec rake rpg:check_results["inspec-output","non_remediated_inspec-output"]'
+                                sh 'bundle exec rake rpg:check_results["inspec-output","non_remediated_inspec_results"]'
                                 sh 'mv results/inspec-output.txt results/non_remediated_inspec_results.txt'
                                 sh 'mv results/inspec-output.json results/non_remediated_inspec_results.json'
                         } catch (Exception e) {
@@ -133,7 +133,7 @@ spec:
                         script {
                             try {
                                 sh 'ruby scripts/parse_results.rb -l inspec-output'
-                                sh 'bundle exec rake rpg:check_results["inspec-output","remediated_inspec-output"]'
+                                sh 'bundle exec rake rpg:check_results["inspec-output","remediated_inspec_results"]'
                                 sh 'mv results/2016_inspec-output.txt results/remediated_inspec_results.txt'
                                 sh 'mv results/inspec-output.json results/remediated_inspec_results.json'
                     } catch (Exception e) {

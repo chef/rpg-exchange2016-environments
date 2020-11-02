@@ -1,0 +1,62 @@
+Passed controls:
+cis-microsoftexchangeserver2016-benchmark-1.1
+cis-microsoftexchangeserver2016-benchmark-1.10
+cis-microsoftexchangeserver2016-benchmark-1.11
+cis-microsoftexchangeserver2016-benchmark-1.12
+cis-microsoftexchangeserver2016-benchmark-1.13
+cis-microsoftexchangeserver2016-benchmark-1.14
+cis-microsoftexchangeserver2016-benchmark-1.15
+cis-microsoftexchangeserver2016-benchmark-1.16
+cis-microsoftexchangeserver2016-benchmark-1.17
+cis-microsoftexchangeserver2016-benchmark-1.18
+cis-microsoftexchangeserver2016-benchmark-1.2
+cis-microsoftexchangeserver2016-benchmark-1.3
+cis-microsoftexchangeserver2016-benchmark-1.4
+cis-microsoftexchangeserver2016-benchmark-1.5
+cis-microsoftexchangeserver2016-benchmark-1.6
+cis-microsoftexchangeserver2016-benchmark-1.7
+cis-microsoftexchangeserver2016-benchmark-1.8
+cis-microsoftexchangeserver2016-benchmark-1.9
+cis-microsoftexchangeserver2016-benchmark-2.1
+cis-microsoftexchangeserver2016-benchmark-2.10
+cis-microsoftexchangeserver2016-benchmark-2.11
+cis-microsoftexchangeserver2016-benchmark-2.12
+cis-microsoftexchangeserver2016-benchmark-2.13
+cis-microsoftexchangeserver2016-benchmark-2.14
+cis-microsoftexchangeserver2016-benchmark-2.15
+cis-microsoftexchangeserver2016-benchmark-2.16
+cis-microsoftexchangeserver2016-benchmark-2.17
+cis-microsoftexchangeserver2016-benchmark-2.18
+cis-microsoftexchangeserver2016-benchmark-2.19
+cis-microsoftexchangeserver2016-benchmark-2.2
+cis-microsoftexchangeserver2016-benchmark-2.20
+cis-microsoftexchangeserver2016-benchmark-2.21
+cis-microsoftexchangeserver2016-benchmark-2.3
+cis-microsoftexchangeserver2016-benchmark-2.4
+cis-microsoftexchangeserver2016-benchmark-2.5
+cis-microsoftexchangeserver2016-benchmark-2.6
+cis-microsoftexchangeserver2016-benchmark-2.7
+cis-microsoftexchangeserver2016-benchmark-2.8
+cis-microsoftexchangeserver2016-benchmark-2.9
+cis-microsoftexchangeserver2016-benchmark-3.1
+cis-microsoftexchangeserver2016-benchmark-3.10
+cis-microsoftexchangeserver2016-benchmark-3.11
+cis-microsoftexchangeserver2016-benchmark-3.3
+cis-microsoftexchangeserver2016-benchmark-3.4
+cis-microsoftexchangeserver2016-benchmark-3.5
+cis-microsoftexchangeserver2016-benchmark-3.6
+cis-microsoftexchangeserver2016-benchmark-3.7
+cis-microsoftexchangeserver2016-benchmark-3.8
+cis-microsoftexchangeserver2016-benchmark-3.9
+Total passed controls: 49
+
+Skipped controls:
+cis-microsoftexchangeserver2016-benchmark-3.2
+Total skipped controls: 1
+
+Failed controls:
+Total failed controls: 0
+
+Excluded controls:
+Total excluded controls: 0
+
