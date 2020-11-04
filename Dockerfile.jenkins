@@ -1,0 +1,32 @@
+FROM jenkins/jnlp-slave:3.35-5
+ARG TF_VERSION=0.12.0
+USER root
+RUN \
+  apt-get update && apt upgrade -y && \
+  apt-get install -y git curl libssl-dev libreadline-dev zlib1g-dev autoconf bison build-essential &&\
+  apt-get install -y libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev unzip
+
+RUN mkdir -p /usr/local/bin/inspec
+WORKDIR /usr/local/bin/inspec
+ENV PATH /usr/local/bin/inspec/.rbenv/bin:$PATH
+ENV PATH /usr/local/bin/inspec/shims:$PATH
+ENV RBENV_ROOT /usr/local/bin/inspec
+ENV HOME /usr/local/bin/inspec
+RUN curl -sL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash -
+RUN \
+  echo 'export PATH="/usr/local/bin/inspec/.rbenv/bin:$PATH"' >> ~/.bashrc &&\
+  echo 'eval "$(rbenv init -)"' >> ~/.bashrc &&\
+  rbenv install 2.6.3 &&\
+  rbenv global 2.6.3
+
+RUN gem install bundler
+ADD https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip .
+RUN unzip terraform_${TF_VERSION}_linux_amd64.zip && mv terraform /usr/bin/
+RUN rm terraform_${TF_VERSION}_linux_amd64.zip
+COPY Gemfile .
+RUN mkdir /usr/local/bin/inspec/bundle_gems
+ENV BUNDLE_PATH=/usr/local/bin/inspec/bundle_gems
+ENV AWS_REGION=eu-north-1
+# order important
+RUN chown -R jenkins:jenkins /usr/local/bin/inspec
+USER jenkins
